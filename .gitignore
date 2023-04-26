@@ -57,3 +57,6 @@ Thumbs.db
 
 /KBHM_BACKEND/KhaiBaoHienMau/.vs/KhaiBaoHienMau/FileContentIndex
 /KBHM_BACKEND/KhaiBaoHienMau/.vs/KhaiBaoHienMau/v17/.suo
+*.vsidx
+**.vsidx
+**/.suo

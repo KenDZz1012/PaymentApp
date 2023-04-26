@@ -1,4 +1,5 @@
 ﻿using PaymentDomain.VN_Pay;
+using PaymentInfratructure.Pay.VN_Pay.VNPAY_CS_ASPX;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -48,56 +49,29 @@ namespace PaymentInfratructure.Pay.VN_Pay
             _RequestToVNPay_CreateUrlPayment.vnp_IpAddr = _RequestAPI.IpAddress;
             _RequestToVNPay_CreateUrlPayment.vnp_OrderInfo = _RequestAPI.OrderInfo;
             _RequestToVNPay_CreateUrlPayment.vnp_OrderType = _RequestAPI.OrderType;
-            Result =  ConvertClassToParamert<RequestToVNPay_CreateUrlPayment>(_RequestToVNPay_CreateUrlPayment);
-            _RequestToVNPay_CreateUrlPayment.vnp_SecureHash = HmacSHA512("YETBDLQFUPTHWXAXPDBXCDMBLOTVHZSS", Result);
-            Result = _UrlBase + "?" + Result + $"&vnp_SecureHash={_RequestToVNPay_CreateUrlPayment.vnp_SecureHash}";
+
+            VnPayLibrary vnpay = new VnPayLibrary();
+            vnpay.AddRequestData("vnp_Version", VnPayLibrary.VERSION);
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", _RequestToVNPay_CreateUrlPayment.vnp_TmnCode);
+            vnpay.AddRequestData("vnp_Amount", (_RequestToVNPay_CreateUrlPayment.vnp_Amount * 100).ToString());
+            vnpay.AddRequestData("vnp_CreateDate", _RequestToVNPay_CreateUrlPayment.vnp_CreateDate);
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            vnpay.AddRequestData("vnp_IpAddr", _RequestToVNPay_CreateUrlPayment.vnp_IpAddr);
+            vnpay.AddRequestData("vnp_Locale", "vn");
+            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang:" + _RequestToVNPay_CreateUrlPayment.vnp_OrderInfo);
+            vnpay.AddRequestData("vnp_OrderType", _RequestToVNPay_CreateUrlPayment.vnp_OrderType);
+            vnpay.AddRequestData("vnp_ReturnUrl", _RequestToVNPay_CreateUrlPayment.vnp_ReturnUrl);
+            vnpay.AddRequestData("vnp_TxnRef", _RequestToVNPay_CreateUrlPayment.vnp_TxnRef);
+
+            string paymentUrl = vnpay.CreateRequestUrl(_UrlBase, "YETBDLQFUPTHWXAXPDBXCDMBLOTVHZSS");
             Dispose();
-            return Result;
-        }
-        private string ConvertClassToParamert<T>(T objectClass) where T : class
-        {
-            string Result = string.Empty;
-            Type myObjectType = objectClass.GetType();
-            var indexer = new object[0];
-            PropertyInfo[] properties = myObjectType.GetProperties();
-            foreach (var info in properties)
-            {
-                var value = info.GetValue(objectClass, indexer);
-                if (value != null)
-                {
-                    Result += WebUtility.UrlEncode(info.Name) + "=" + WebUtility.UrlEncode(value?.ToString() ?? "") + "&";
-                }
-             
-            }
-            if (Result.Length > 0)
-            {
-                Result = Result.Remove(Result.Length - 1, 1);
-            }
-            return Result;
-        }
-        private string HmacSHA512(string key, System.String inputData)
-        {
-            var hash = new StringBuilder();
-            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
-            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
-            using (var hmac = new HMACSHA512(keyBytes))
-            {
-                byte[] hashValue = hmac.ComputeHash(inputBytes);
-                foreach (var theByte in hashValue)
-                {
-                    hash.Append(theByte.ToString("x2"));
-                }
-            }
+            return paymentUrl;
 
-            return hash.ToString();
         }
-
-
         public void Dispose()
         {
             _RequestAPI = null;
         }
-
-
     }
 }

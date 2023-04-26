@@ -71,7 +71,7 @@ namespace PaymentDomain.VN_Pay
             /// <summary>
             /// Mã tham chiếu của giao dịch tại hệ thống của merchant. Mã này là duy nhất dùng để phân biệt các đơn hàng gửi sang VNPAY. Không được trùng lặp trong ngày. Ví dụ: 23554
             /// </summary>
-            [Required] public string vnp_TxnRef { get; set; } = new Random().Next(100000, 10000000).ToString();
+            [Required] public string vnp_TxnRef { get; set; }
             /// <summary>
             /// Mã kiểm tra (checksum) để đảm bảo dữ liệu của giao dịch không bị thay đổi trong quá trình chuyển từ merchant sang VNPAY. Việc tạo ra mã này phụ thuộc vào cấu hình của merchant và phiên bản api sử dụng. Phiên bản hiện tại hỗ trợ SHA256, HMACSHA512.
             /// </summary>

@@ -10,6 +10,7 @@ namespace PaymentDomain.VN_Pay
     {
         public string URL_PaymentServices { get; set; }
         public DateTime CreateURL { get; set; }
+        public string vnp_TxnRef { get; set; }
 
     }
 }
