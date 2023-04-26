@@ -11,5 +11,6 @@ namespace PaymentApplication.interfaces
     public interface IConnection_Payment
     {
         Task<Reponse> PostPayment(mapping.Payment Payment, CancellationToken cancellationToken);
+        Task<ReponseTransaction> GetPayment(mapping.ReponsePayment Payment, CancellationToken cancellationToken);
     }
 }
