@@ -1,5 +1,6 @@
 ﻿
 using PaymentApplication.interfaces;
+using PaymentApplication.mapping;
 using PaymentApplication.Request;
 using PaymentDomain.VN_Pay;
 using PaymentInfratructure.Pay.VN_Pay;
@@ -32,6 +33,11 @@ namespace PaymentApplication.Handle
             reponse.CreateURL = DateTime.Now;
             reponse.vnp_TxnRef = RexTef;
             return reponse;
+        }
+
+        public async Task<ReponseTransaction> GetPayment(ReponsePayment Payment, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

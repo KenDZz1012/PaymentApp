@@ -18,8 +18,4 @@
     <ProjectReference Include="..\PaymentInfratructure\PaymentInfratructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CQRS\Get\" />
-  </ItemGroup>
-
 </Project>

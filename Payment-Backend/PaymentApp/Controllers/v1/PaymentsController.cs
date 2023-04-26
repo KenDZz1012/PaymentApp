@@ -19,6 +19,11 @@ namespace Payment_Services.Controllers.v1
         [HttpPost("Payment")]
         public async Task<IActionResult> CreatePayment(PaymentApplication.mapping.Payment Request)
         {
+            return Created("Payment", await _Mediator.Send(Request));
+        }
+        [HttpGet("Payment")]
+        public async Task<IActionResult> GetPayment([FromQuery]PaymentApplication.mapping.ReponsePayment Request)
+        {
             return Ok(await _Mediator.Send(Request));
         }
     }
