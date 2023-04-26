@@ -1,0 +1,33 @@
+﻿
+using PaymentApplication.interfaces;
+using PaymentApplication.Request;
+using PaymentDomain.VN_Pay;
+using PaymentInfratructure.Pay.VN_Pay;
+namespace PaymentApplication.Handle
+{
+    public class PaymentHandle : IConnection_Payment
+    {
+        public ConfigEnv.Config_VNPay _Config_VNPay { get; set; }
+        public PaymentHandle(ConfigEnv.Config_VNPay Config_VNPay)
+        {
+            _Config_VNPay = Config_VNPay;
+        }
+        public async Task<Reponse> PostPayment(mapping.Payment Payment, CancellationToken cancellationToken)
+        {
+            var Pay = _Config_VNPay.CreateConnection();
+            Reponse reponse = new Reponse();
+            reponse.URL_PaymentServices = await VNPayServices.instance
+                .Request_Par(Payment)
+                .RequestToVNPay_Par(new PaymentDomain.VN_Pay.Request.RequestToVNPay_CreateUrlPayment
+                {
+                    vnp_Version = "2.1.0",
+                    vnp_Command = "pay",
+                    vnp_TmnCode = "3FOBOVZ9",
+                })
+                .Url_Par("https://sandbox.vnpayment.vn/paymentv2/vpcpay.html")
+                .CreatePaymentAsync();
+            reponse.CreateURL = DateTime.Now;
+            return reponse;
+        }
+    }
+}
