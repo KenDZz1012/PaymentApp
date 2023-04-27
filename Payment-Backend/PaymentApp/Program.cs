@@ -14,6 +14,15 @@ builder.Services.ConfigureMediatR();
 builder.Services.ConfigFluentValidation(typeof(Assembly).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.AddScoped<Config_VNPay>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "*",
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000");
+                      });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,7 +33,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("*");
 app.UseAuthorization();
 
 app.MapControllers();
