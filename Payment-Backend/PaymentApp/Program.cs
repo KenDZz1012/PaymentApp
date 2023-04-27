@@ -14,14 +14,7 @@ builder.Services.ConfigureMediatR();
 builder.Services.ConfigFluentValidation(typeof(Assembly).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.AddScoped<Config_VNPay>();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "*",
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:3000");
-                      });
-});
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -33,7 +26,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("*");
+app.UseCors(x => x
+     .AllowAnyMethod()
+     .AllowAnyHeader()
+     .SetIsOriginAllowed(origin => true) // allow any origin
+     .AllowCredentials()); // allow credentials
 app.UseAuthorization();
 
 app.MapControllers();

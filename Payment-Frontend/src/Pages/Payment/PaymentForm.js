@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, Select } from "antd";
+import { postPayment } from "../../Helpers/app-backend/payment_backend_helper";
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -13,10 +14,14 @@ const layout = {
 };
 const PaymentForm = () => {
   const formRef = React.useRef(null);
-
-  const onTypePaymentChange = (value) => {
-    formRef.current?.setFieldsValue({
-      type: value,
+  const [modal, setModal] = useState(false);
+  const [dataResponse, setDataResponse] = useState(null);
+  const onFinish = async (values) => {
+    values.ipAddress = "";
+    await postPayment(values).then((res) => {
+      console.log(res)
+      setDataResponse(res);
+      setModal(true);
     });
   };
   return (
@@ -26,6 +31,7 @@ const PaymentForm = () => {
         <Form
           {...layout}
           ref={formRef}
+          onFinish={onFinish}
           name="control-ref"
           style={{
             maxWidth: 800,
@@ -33,7 +39,7 @@ const PaymentForm = () => {
           }}
         >
           <Form.Item
-            name="TypePayment"
+            name="orderType"
             label="Loại hàng hóa"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
@@ -43,41 +49,47 @@ const PaymentForm = () => {
               },
             ]}
           >
-            <Select onChange={onTypePaymentChange} allowClear>
-              <Option value="0">Nạp tiền điện thoại</Option>
-              <Option value="1">Thanh toán hóa đơn</Option>
-              <Option value="2">Thời trang</Option>
+            <Select allowClear>
+              <Option value="Nạp tiền điện thoại">Nạp tiền điện thoại</Option>
+              <Option value="Thanh toán hóa đơn">Thanh toán hóa đơn</Option>
+              <Option value="Thời trang">Thời trang</Option>
             </Select>
           </Form.Item>
 
           <Form.Item
-            name="money"
+            name="amount"
             label="Số tiền"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
           >
             <InputNumber
               style={{ width: "100%" }}
-              defaultValue={1000}
+              defaultValue={0}
               formatter={(value) =>
                 `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
               }
               parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+              onChange={(val) => {
+                formRef.current?.setFieldsValue({
+                  amount: val,
+                });
+              }}
             />{" "}
           </Form.Item>
 
           <Form.Item
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
-            name="description"
+            name="orderInfo"
             label="Nội dung thanh toán"
           >
-            <TextArea />{" "}
+            <TextArea
+              onChange={(val) => {
+                formRef.current?.setFieldsValue({
+                  orderInfo: val.target.value,
+                });
+              }}
+            />{" "}
           </Form.Item>
 
           <Form.Item
