@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { postPayment } from "../../Helpers/app-backend/payment_backend_helper";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -13,15 +14,14 @@ const layout = {
   },
 };
 const PaymentForm = () => {
+  const navigate = useNavigate();
   const formRef = React.useRef(null);
-  const [modal, setModal] = useState(false);
   const [dataResponse, setDataResponse] = useState(null);
   const onFinish = async (values) => {
     values.ipAddress = "";
     await postPayment(values).then((res) => {
-      console.log(res)
       setDataResponse(res);
-      setModal(true);
+      window.location.replace(res.urL_PaymentServices);
     });
   };
   return (
