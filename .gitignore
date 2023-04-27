@@ -60,3 +60,7 @@ Thumbs.db
 *.vsidx
 **.vsidx
 **/.suo
+/Payment-Backend/.vs/Payment-Services/DesignTimeBuild
+/Payment-Backend/.vs/Payment-Services/FileContentIndex
+/Payment-Backend/.vs/ProjectEvaluation
+/Payment-Backend/.vs/Payment-Services

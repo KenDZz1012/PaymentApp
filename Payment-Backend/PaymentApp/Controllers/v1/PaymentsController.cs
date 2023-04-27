@@ -24,7 +24,10 @@ namespace Payment_Services.Controllers.v1
         [HttpGet("Payment")]
         public async Task<IActionResult> GetPayment([FromQuery]PaymentApplication.mapping.ReponsePayment Request)
         {
-            return Ok(await _Mediator.Send(Request));
+            var data =  await _Mediator.Send(Request);
+            string Header = PaymentInfratructure.Pay.VN_Pay.VNPAY_CS_ASPX.Utils.ConvertClassToParamert<PaymentDomain.VN_Pay.ReponseVNPayTransaction>(data);
+            string baseUrl = string.Format("", Header);
+            return Redirect(baseUrl);
         }
     }
 }

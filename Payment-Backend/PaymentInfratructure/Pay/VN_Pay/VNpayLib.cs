@@ -11,6 +11,7 @@ namespace PaymentInfratructure.Pay.VN_Pay
     using System.Globalization;
     using System.Net;
     using System.Net.Http;
+    using System.Reflection;
     using System.Security.Cryptography;
     using System.Text;
     using System.Web;
@@ -123,7 +124,27 @@ namespace PaymentInfratructure.Pay.VN_Pay
 
         public class Utils
         {
+            public static string ConvertClassToParamert<T>(T objectClass) where T : class
+            {
+                string Result = string.Empty;
+                Type myObjectType = objectClass.GetType();
+                var indexer = new object[0];
+                PropertyInfo[] properties = myObjectType.GetProperties();
+                foreach (var info in properties)
+                {
+                    var value = info.GetValue(objectClass, indexer);
+                    if (value != null)
+                    {
+                        Result += WebUtility.UrlEncode(info.Name) + "=" + WebUtility.UrlEncode(value?.ToString() ?? "") + "&";
+                    }
 
+                }
+                if (Result.Length > 0)
+                {
+                    Result = Result.Remove(Result.Length - 1, 1);
+                }
+                return Result;
+            }
 
             public static String HmacSHA512(string key, String inputData)
             {
