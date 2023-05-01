@@ -25,8 +25,8 @@ namespace Payment_Services.Controllers.v1
         public async Task<IActionResult> GetPayment([FromQuery]PaymentApplication.mapping.ReponsePayment Request)
         {
             var data =  await _Mediator.Send(Request);
-            string Header = PaymentInfratructure.Pay.VN_Pay.VNPAY_CS_ASPX.Utils.ConvertClassToParamert<PaymentDomain.VN_Pay.ReponseVNPayTransaction>(data);
-            string baseUrl = string.Format("", Header);
+            string Header = PaymentInfratructure.Pay.VN_Pay.VNPAY_CS_ASPX.Utils.ConvertClassToParamert<PaymentDomain.VN_Pay.ReponseTransaction>(data);
+            string baseUrl = string.Format("http://localhost:3000/PaymentStatus{0}", Header);
             return Redirect(baseUrl);
         }
     }

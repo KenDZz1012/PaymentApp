@@ -135,7 +135,7 @@ namespace PaymentInfratructure.Pay.VN_Pay
                     var value = info.GetValue(objectClass, indexer);
                     if (value != null)
                     {
-                        Result += WebUtility.UrlEncode(info.Name) + "=" + WebUtility.UrlEncode(value?.ToString() ?? "") + "&";
+                        Result += "/" + WebUtility.UrlEncode(value?.ToString() ?? "");
                     }
 
                 }

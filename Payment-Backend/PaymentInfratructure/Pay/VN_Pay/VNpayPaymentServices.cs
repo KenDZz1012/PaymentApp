@@ -22,6 +22,7 @@ namespace PaymentInfratructure.Pay.VN_Pay
         {
             ReponseTransaction reponse = new ReponseTransaction();
             reponse.Messenger = ConvertPayMessenger(ReponseVNPayTransaction.vnp_TransactionStatus);
+            reponse.PayStatus = ReponseVNPayTransaction.vnp_TransactionStatus == 0;
             reponse.vnp_TxnRef = ReponseVNPayTransaction.vnp_TxnRef;
             reponse.vnp_TransactionStatus = ReponseVNPayTransaction.vnp_TransactionStatus;
             reponse.vnp_TransactionNo = ReponseVNPayTransaction.vnp_TransactionNo;

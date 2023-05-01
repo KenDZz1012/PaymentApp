@@ -37,7 +37,7 @@ namespace PaymentApplication.Handle
 
         public async Task<ReponseTransaction> GetPayment(ReponsePayment Payment, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await PaymentInfratructure.Pay.VN_Pay.VNpayPaymentServices.instance.VNpayReturnTransaction(Payment).ReponseTransaction();
         }
     }
 }

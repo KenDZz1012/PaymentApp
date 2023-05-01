@@ -23,7 +23,7 @@ namespace PaymentDomain.VN_Pay
     {
         public string Code { get; set; }
         public string Router { get; set; }
-        public string status { get; set; }
+        public bool PayStatus { get; set; }
         public  string Messenger { get; set; }
 
     }
