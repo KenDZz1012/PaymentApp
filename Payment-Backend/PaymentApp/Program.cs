@@ -15,6 +15,9 @@ builder.Services.ConfigFluentValidation(typeof(Assembly).Assembly);
 builder.Services.ConfigureServices();
 builder.Services.AddScoped<Config_VNPay>();
 builder.Services.AddCors();
+builder.Services.AddHealthChecks();
+builder.Services.CheckEnv();
+
 
 var app = builder.Build();
 
@@ -23,8 +26,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-
+}builder.Services.AddHealthChecks();
+app.MapHealthChecks("/healthz");
 app.UseHttpsRedirection();
 app.UseCors(x => x
      .AllowAnyMethod()

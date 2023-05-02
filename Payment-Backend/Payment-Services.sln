@@ -3,19 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment-Services", "Payment-Services.csproj", "{279A2928-9566-4DD8-BBC0-178FCDD2FCB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment-Services", "PaymentApp\Payment-Services.csproj", "{279A2928-9566-4DD8-BBC0-178FCDD2FCB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B9E01E57-89B1-45C8-84FD-40C751E4EEAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentDomain", "..\PaymentDomain\PaymentDomain.csproj", "{D7AA075C-9F21-4C06-ADB2-BE9ACB96E442}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentDomain", "PaymentDomain\PaymentDomain.csproj", "{D7AA075C-9F21-4C06-ADB2-BE9ACB96E442}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{793BCC14-C139-456C-B02F-F154B2BF03E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{1EE12132-A85B-4A1B-A416-21206EE40724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplication", "..\PaymentApplication\PaymentApplication.csproj", "{1C7C83BA-676C-4164-84E8-9B064152E9F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentApplication", "PaymentApplication\PaymentApplication.csproj", "{1C7C83BA-676C-4164-84E8-9B064152E9F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentInfratructure", "..\PaymentInfratructure\PaymentInfratructure.csproj", "{5763FDD8-24B1-4271-A04B-030DA914B066}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentInfratructure", "PaymentInfratructure\PaymentInfratructure.csproj", "{5763FDD8-24B1-4271-A04B-030DA914B066}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{C6D83BF5-AA18-4BDB-8905-36DA44A86B89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5763FDD8-24B1-4271-A04B-030DA914B066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5763FDD8-24B1-4271-A04B-030DA914B066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5763FDD8-24B1-4271-A04B-030DA914B066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D83BF5-AA18-4BDB-8905-36DA44A86B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D83BF5-AA18-4BDB-8905-36DA44A86B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D83BF5-AA18-4BDB-8905-36DA44A86B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D83BF5-AA18-4BDB-8905-36DA44A86B89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
