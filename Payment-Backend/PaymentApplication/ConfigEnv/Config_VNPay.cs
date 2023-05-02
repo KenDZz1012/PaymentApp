@@ -11,13 +11,7 @@ namespace PaymentApplication.ConfigEnv
 {
     public class Config_VNPay
     {
-        private readonly PaymentDomain.VN_Pay.Request.RequestToVNPay_CreateUrlPayment GetENV_requestToVNPay_CreateUrlPayment = new RequestToVNPay_CreateUrlPayment();
-        public Config_VNPay()
-        {
-        
-        }
-        public RequestToVNPay_CreateUrlPayment CreateConnection()
-            => GetENV_requestToVNPay_CreateUrlPayment;
+      
 
     }
 }
