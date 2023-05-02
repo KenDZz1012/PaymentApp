@@ -8,7 +8,7 @@ const UserRoutes = () => {
     <Router>
       <Routes>
         <Route exact={true} path="/Payment" element={<Payment />} />
-        <Route  path="/PaymentStatus/:PayStatus/:Messenger/:vnp_TransactionStatus/:vnp_TransactionNo/:TransactionID/:vnp_TxnRef/:vnp_Amount" element={<PaymentStatus />} />
+        <Route exact={true} path="/PaymentStatus/:PayStatus/:Messenger/:vnp_TransactionStatus/:vnp_TransactionNo/:TransactionID/:vnp_TxnRef/" element={<PaymentStatus />} />
       </Routes>
     </Router>
   );
